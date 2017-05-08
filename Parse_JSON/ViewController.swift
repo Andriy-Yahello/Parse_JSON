@@ -18,16 +18,30 @@ class ViewController: UIViewController {
         let task = URLSession.shared.dataTask(with: url!){ (data, response, error) in
             
             if error != nil{
-                print("Eroor")
+                print("Error")
             }
             else
             {
                     if let mydata = data {
                         do {
-                            let myJson = try print(JSONSerialization.jsonObject(with: mydata, options: JSONSerialization.ReadingOptions.mutableContainers) as  AnyObject)
-                            print(myJson)
+                            let myJson = try JSONSerialization.jsonObject(with: mydata, options: JSONSerialization.ReadingOptions.mutableContainers) as  AnyObject
                             
-                        }catch{
+                            //print(myJson) //dictionary
+                            //going one step in a dictionary
+                            if let face = myJson["face"] as AnyObject?
+                            {
+                                if let mouth = face["mouth"] as! NSArray?
+                                {
+                                    //print(mouth)//separate dictionary mouth
+                                    //printfirst 3
+                                    for i in 0..<3
+                                    {
+                                        print(mouth[i])
+                                    }
+                                }
+                                }
+                        }
+                            catch{
                                 
                             }
                         }
